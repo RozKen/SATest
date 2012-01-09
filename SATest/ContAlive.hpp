@@ -53,10 +53,7 @@ inline ContAlive::ContAlive(): threshold((float)BATTERY_LOW){
 		std::string name = "visionCAl[";
 		name.append(this->intToString(i));
 		name.append("]");
-		std::string iName = "i";
-		iName.append(name);
-		this->addOutput(name);
-		this->addIBoard(iName);
+		this->addInput(name);
 	}
 
 	this->addIBoard("ChargingFlag");

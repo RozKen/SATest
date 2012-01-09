@@ -19,6 +19,8 @@
 #define INVERSE_SUPPRESSOR
 #endif
 
+#define NUM_ROBOTS			3
+
 //削除予定
 #define LENGTH				100
 /**
@@ -43,8 +45,8 @@
 #define ONSTART			1
 #define ONGOAL			2
 #define ONCHARGER		3
-///全体における障害物の存在確率
-#define P_BARRIER		0.05		//0.05
+///全体における充電器の存在確率
+#define P_CHARGER		0.05		//0.05
 
 /////////ContAlive/////////////
 ///Batteryが低いと判断するしきい値
@@ -55,6 +57,7 @@
 #endif	//IMPORTANCE_BASED
 #define MAX_BAT			100
 #define BAT_LOSS		3
+#define	BAT_GAIN		10
 
 /////////ContProgress/////////
 #ifdef	IMPORTANCE_BASED

@@ -38,7 +38,7 @@ public:
 
 inline SenseVision::SenseVision(){
 	for(int i = 0; i < RANGE * 2 + 1; i++){
-		std::string name = "vision[";
+		std::string name = "Vision[";
 		name.append(this->intToString(i));
 		name.append("]");
 		std::string iName = "i";

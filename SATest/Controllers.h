@@ -6,6 +6,6 @@
 //Alive
 #include "ContAlive.hpp"
 //Progress
-#include "ContWander.hpp"
+#include "ContProgress.hpp"
 
 #endif	//_Controllers_H_

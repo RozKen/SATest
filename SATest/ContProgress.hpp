@@ -53,20 +53,15 @@ public:
 	virtual void Run();
 protected:
 	int findGoal();
-	///Random Generator
-	//Random<boost::uniform_real<> > _rand;
 };
 
-inline ContProgress::ContProgress(): _rand(0, 1){
+inline ContProgress::ContProgress(){
 	this->addInput("posXCP");
 	for(int i = 0; i < RANGE * 2 + 1; i++){
 		std::string name = "visionCP[";
 		name.append(this->intToString(i));
 		name.append("]");
-		std::string iName = "i";
-		iName.append(name);
-		this->addOutput(name);
-		this->addIBoard(iName);
+		this->addInput(name);
 	}
 
 	this->addOutput("dXCP");

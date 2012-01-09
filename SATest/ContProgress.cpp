@@ -3,13 +3,13 @@
 
 void ContProgress::Run(){
 	//—š—ð‚ðˆÚ“®
-	for(int i = 9; i > 1; i--){
-		this->innerMemory->setFBoard(i, this->innerMemory->getFBoard(i - 2));
+	for(int i = 4; i > 1; i--){
+		this->innerMemory->setFBoard(i, this->innerMemory->getFBoard(i - 1));
 	}
 	//ÅVó‘Ô‚ðXV
 	this->innerMemory->setFBoard(0, this->getInput(0));
 
-	int step = this->getFBoard(0);
+	int step = this->getIBoard(0);
 	if(step == NO_SIGNAL){
 		this->setIBoard(0, 0);
 	}else{
