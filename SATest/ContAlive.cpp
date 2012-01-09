@@ -51,14 +51,21 @@ void ContAlive::Run(){
 						signalX = 0.0f;
 #ifdef	IMPORTANCE_BASED
 						//Battery残量が少ないほど，重要度が増すようにする
-						this->importance = 120.0f * this->calcImportance(1.0f - batLevel / ((float)MAX_BAT));
+						this->importance = 50.0f * this->calcImportance(1.0f - batLevel / ((float)MAX_BAT));
 #endif	//IMPORTANCE_BASED
 						//充電中にする
 						this->setIBoard(0, 1);
 					}else{				//充電器まで移動する必要がある場合
-						signalX = (float)MAX_DRIVE * (index - RANGE) / distance;
+						signalX = (float)MAX_DRIVE * (index - RANGE);
+						if(distance > 1.0){
+							signalX /= distance;
+						}
 #ifdef	IMPORTANCE_BASED
-						this->importance = this->calcImportance(RANGE / distance);
+						if(distance < 0.6){
+							this->importance = VERY_IMPORTANT;
+						}else{
+							this->importance = this->calcImportance(RANGE / distance);
+						}
 #endif	//IMPORTANCE_BASED
 					}
 				}

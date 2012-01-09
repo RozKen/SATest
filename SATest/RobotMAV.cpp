@@ -116,42 +116,23 @@ void RobotMAV::Initialize(){
 }
 
 void RobotMAV::Run(){
+
+#ifdef	CONSIDER_DELAY
 	ProcessInputs();
-#ifdef	CONSIDER_DELAY
-	if(count == 0){
-#endif	//CONSIDER_DELAY
-		//RobotへのInputを処理する
-#ifdef	CONSIDER_DELAY
-		count = 1;
-	}else if(count == 1){
-		//Robotの各Moduleを動かす
+	for(int i = 0; i < 2; i++){
 		RunModules();
 		ProcessArbiters();
-		RunModules();
-		ProcessArbiters();
-#endif	//CONSIDER_DELAY
-		RunModules();
-		//Arbiterを作動させる
-		ProcessArbiters();
-
-		//RobotからのOutputを処理する
-		ProcessOutputs();
-		//内部の情報を更新する
-		//Update();
-		//Logを取る
-		Log();
-		//地図を記録する
-		//logMaps();
-
-#ifdef	CONSIDER_DELAY
-		count = 0;
-	}else if(count == 2){
-#endif	//CONSIDER_DELAY
-
-#ifdef	CONSIDER_DELAY
-		count = 0;
 	}
+	ProcessOutputs();
+	
+#else	//CONSIDER_DELAY
+	ProcessInputs();
+	RunModules();
+	ProcessArbiters();
+	ProcessOutputs();
+	Log();
 #endif	//CONSIDER_DELAY
+
 }
 
 void RobotMAV::Update(){
