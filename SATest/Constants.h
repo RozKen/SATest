@@ -2,7 +2,7 @@
 #define _Constants_H_
 
 //Robot内, Robot-World間情報処理の遅延を考慮する場合，宣言する
-//#define CONSIDER_DELAY
+#define CONSIDER_DELAY
 
 //Importance-Basedでやるとき宣言
 #define IMPORTANCE_BASED
@@ -19,7 +19,7 @@
 #define INVERSE_SUPPRESSOR
 #endif
 
-#define NUM_ROBOTS			1
+#define NUM_ROBOTS			11
 
 //削除予定
 #define LENGTH				100
@@ -71,8 +71,8 @@
 	視野の奥行き:自分から2以上離れていれば，一度に1しか
 	動かないロボット同士はぶつからない
 */
-#define RANGE			5		//RANGE = (int)ceil(RANGE_DANGER);
-#define RANGE_DANGER	5.0f
+#define RANGE			10		//RANGE = (int)ceil(RANGE_DANGER);
+#define RANGE_DANGER	10.0f
 
 ///無信号状態
 #define NO_SIGNAL		-99.0f
@@ -86,7 +86,7 @@
 
 ///一度の動ける距離
 #ifdef CONSIDER_DELAY
-#define MAX_DRIVE		0.3333f
+#define MAX_DRIVE		1.0f	//0.3333f
 #else
 #define MAX_DRIVE		1.0f
 #endif	//CONSIDER_DELAY

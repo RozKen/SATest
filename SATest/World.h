@@ -123,9 +123,6 @@ protected:
 		@sa geoField
 	 */
 	void generateGeoField(std::string filepath);
-#ifdef	CONSIDER_DELAY
-	int count;
-#endif	//CONSIDER_DELAY
 };
 
 inline void World::addRobot(RobotMAV* robot){

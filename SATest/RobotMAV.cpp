@@ -116,17 +116,19 @@ void RobotMAV::Initialize(){
 }
 
 void RobotMAV::Run(){
+	ProcessInputs();
 #ifdef	CONSIDER_DELAY
 	if(count == 0){
 #endif	//CONSIDER_DELAY
 		//Robot‚Ö‚ÌInput‚ðˆ—‚·‚é
-		ProcessInputs();
 #ifdef	CONSIDER_DELAY
 		count = 1;
 	}else if(count == 1){
 		//Robot‚ÌŠeModule‚ð“®‚©‚·
 		RunModules();
+		ProcessArbiters();
 		RunModules();
+		ProcessArbiters();
 #endif	//CONSIDER_DELAY
 		RunModules();
 		//Arbiter‚ðì“®‚³‚¹‚é
@@ -167,17 +169,17 @@ void RobotMAV::setBattery(float value){
 	this->setInput(0, value);
 }
 float RobotMAV::getPosX() const{
-	return this->getInput(12);
+	return this->getInput(1 + RANGE * 2 + 1);
 }
 void  RobotMAV::setPosX(float value){
-	this->setInput(12, value);
+	this->setInput(1 + RANGE * 2 + 1, value);
 }
 float RobotMAV::getVision(int index) const{
 	float value;
 	if(index < RANGE * 2 + 1){
 		value = this->getInput(1 + index);
 	}else{
-		value = -9999;	//NO_SIGNAL;
+		value = NO_SIGNAL;
 	}
 	return value;
 }
@@ -195,7 +197,7 @@ float RobotMAV::getChargingFlag() const{
 }
 ///set‚ÍInput‚Ö
 void RobotMAV::setChargingFlag(float value){
-	this->setInput(13, value);
+	this->setInput(1 + RANGE * 2 + 2, value);
 }
 
 ///get‚ÍOutput‚©‚ç
@@ -204,7 +206,7 @@ float RobotMAV::getSteps() const{
 }
 ///set‚ÍInput‚Ö
 void RobotMAV::setSteps(float value){
-	this->setInput(14, value);
+	this->setInput(1 + RANGE * 2 + 3, value);
 }
 
 float RobotMAV::getColorR() const{
@@ -222,7 +224,7 @@ void RobotMAV::ProcessArbiters(){
 	for(int i = 0; i < arbiters->size(); i++){
 		arbiters->at(i)->Run();
 		switch(i){
-		case 25:	//Alive Suppress Avoid and ActPos
+		case (RANGE * 2 + 1) * 2 + 3:	//Alive Suppress Avoid and ActPos
 			ratios[0] = arbiters->at(i)->getCurrentRatio();
 			break;
 		default:
@@ -232,7 +234,7 @@ void RobotMAV::ProcessArbiters(){
 
 	///Set RobotColor According to Suppress
 
-	if(this->getPosX() == NO_SIGNAL){
+	if(this->getPosX() == NO_SIGNAL || this->getDX() == NO_SIGNAL){
 		color[0] = 0.3f;
 		color[1] = 0.3f;
 		color[2] = 0.3f;

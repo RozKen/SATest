@@ -20,7 +20,7 @@ void ContAlive::Run(){
 			}else{	//[“d‚ªŠ®—¹‚µ‚Ä‚¢‚È‚¢ê‡F’âŽ~‚µ‚Ä[“d‚·‚é
 				signalX = 0.0f;
 #ifdef	IMPORTANCE_BASED
-				this->importance = 1.0f;
+				this->importance = 50.0f;
 #endif	//IMPORTANCE_BASED
 			}
 		}else{	//[“d’†‚¶‚á‚È‚¢ê‡
@@ -42,23 +42,23 @@ void ContAlive::Run(){
 				
 				//‹ß‚­‚É[“dŠí‚ª–³‚©‚Á‚½ê‡
 				if(index == -1){
-					signalX = 0.0f;
+					signalX = NO_SIGNAL;
 #ifdef	IMPORTANCE_BASED
-					this->importance = 1.0f;
+					this->importance = NO_SIGNAL;
 #endif	//IMPORTANCE_BASED
 				}else{	//[“dŠí‚ªŒ©‚Â‚©‚Á‚½‚ç
 					if(index == RANGE){	//‚¢‚ÜC[“dŠí‚Ìã‚É‚¢‚éê‡
 						signalX = 0.0f;
 #ifdef	IMPORTANCE_BASED
 						//BatteryŽc—Ê‚ª­‚È‚¢‚Ù‚ÇCd—v“x‚ª‘‚·‚æ‚¤‚É‚·‚é
-						this->importance = this->calcImportance(1.0f - batLevel / ((float)MAX_BAT));
+						this->importance = 120.0f * this->calcImportance(1.0f - batLevel / ((float)MAX_BAT));
 #endif	//IMPORTANCE_BASED
 						//[“d’†‚É‚·‚é
 						this->setIBoard(0, 1);
 					}else{				//[“dŠí‚Ü‚ÅˆÚ“®‚·‚é•K—v‚ª‚ ‚éê‡
-						signalX = (index - RANGE) / distance;
+						signalX = (float)MAX_DRIVE * (index - RANGE) / distance;
 #ifdef	IMPORTANCE_BASED
-						this->importance = 1.0f;
+						this->importance = this->calcImportance(RANGE / distance);
 #endif	//IMPORTANCE_BASED
 					}
 				}

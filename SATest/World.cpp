@@ -15,23 +15,13 @@ World::~World(){
 
 void World::Initialize(){
 	generateGeoField();//"geoField.csv");
-#ifdef	CONSIDER_DELAY
-	count = 0;
-#endif	//CONSIDER_DELAY
 }
 
 void World::Run(){
 	this->RunRobots();
 	this->Update();
-#ifdef	CONSIDER_DELAY
-	if(count % 2 == 1){
-#endif	//CONSIDER_DELAY
-		//Œ»İ‚Ìó‘Ô‚ğ‹L˜^
-		Log();
-#ifdef	CONSIDER_DELAY
-	}
-	count++;
-#endif	//CONSIDER_DELAY
+	//Œ»İ‚Ìó‘Ô‚ğ‹L˜^
+	Log();
 }
 
 void World::RunRobots(){
@@ -170,7 +160,7 @@ void World::generateGeoField(std::string filepath){
 bool World::onCharger(const RobotMAV* robot){
 	bool result = false;
 	int i = robot->getPosX();
-	if(this->geoField[i][0] == ONCHARGER || this->geoField[i][0] == ONSTART){
+	if(this->geoField[i][0] == ONCHARGER){
 		result = true;
 	}
 	return result;
@@ -178,7 +168,7 @@ bool World::onCharger(const RobotMAV* robot){
 
 bool World::isAlive(const RobotMAV* robot){
 	bool result = true;
-	if(robot->getBattery() < 1.0){
+	if(robot->getBattery() < 1.0 * (float)MAX_DRIVE){
 		result = false;
 	}
 	return result;

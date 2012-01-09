@@ -211,18 +211,19 @@ double Arbiter::generateSignal(){
 		if(imp != NO_SIGNAL){	//Srcの重要度がNO_SIGNALでないとき
 			destination->setImportance(imp);	//Srcの重要度をそのまま，Dstの重要度にするよう設定
 		}else{					//Srcの重要度がNO_SIGNALの時，
-			if(destination->getNumOfInputPorts() == 2
+			if(destination->getNumOfInputPorts() == 1
 				&& destination->getNumOfOutputPorts() == 0
-				&& destination->getFBoardTitles()->size() == 2
+				&& destination->getFBoardTitles()->size() == 1
 				&& destination->getIBoardTitles()->size() == 0){	//つまり，destinationがActPosの時
 					destination->setImportance(NO_SIGNAL);	//Dstの重要度もNO_SIGNALとする
 			}else{
 				//currentFactor = destination->getImportance();
-				float impDst = destination->getImportance();
+				/*float impDst = destination->getImportance();
 				if(getDest() == NO_SIGNAL){
 					impDst = NO_SIGNAL;
 				}
 				destination->setImportance(impDst);
+				*/
 			}
 		}
 #endif	//IMPORTANCE_BASED
