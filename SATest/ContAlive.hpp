@@ -16,7 +16,11 @@
 	<h1>Outputs</h1>
 	<ul>
 		<li>Output0: dXCAl: delta X - differential of Motion X</li>
-		<li>Output1: dXCAl: delta Y - differential of Motion Y</li>
+	</ul>
+
+	<h1>IBoard</h1>
+	<ul>
+		<li>IBoard0 : ChargingFlag - 0 = NOT CHARGING, 1 = CHARGING</li>
 	</ul>
 	@author Kenichi Yorozu
 	@date 29th November 2011
