@@ -27,7 +27,7 @@ unsigned char Buttons[3] = {0};
 #define	CAPTURE
 #ifdef	CAPTURE
 gl_screenshot gs;
-std::string captureFolder = "F:\Captures\\";
+std::string captureFolder = "F:\\Captures\\";
 int frame = 0;
 bool capture = false;
 #endif	//CAPTURE
@@ -59,7 +59,7 @@ bool onSimulation = false;
 /**
 	@brief 色の配列を返す
  */
-float* CalcColor(float radValue);
+float* CalcColor(int x);
 
 /**
 	@brief Flagの組み合わせから，表示/非表示を算出
@@ -242,26 +242,33 @@ void glDisplay(){
 	glTranslatef(offsetX, 0, offsetY);
 
 		//Draw Battery Charger as Cone
-		if(renderShadow){
-			GLfloat matTmp[] = {0.0, 1.0, 0.0, 1.0};
-			glMaterialfv(GL_FRONT, GL_DIFFUSE, matTmp);
-		}else{
-			glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
-		}
 		int geo = NO_SIGNAL;
 		for(int i = 0; i < LENGTH; i++){
+			float* color = CalcColor(i);
+			if(renderShadow){
+				GLfloat matTmp[] = {color[0], color[1], color[2], 1.0};
+				glMaterialfv(GL_FRONT, GL_DIFFUSE, matTmp);
+			}else{
+				glColor4f(color[0], color[1], color[2], 1.0f);
+			}
+			//CalcColor内でnewしている．
+			delete color;
+
+			glTranslatef(i, 0, 0);
 			geo = world->geoField[i][0];
-			if(geo == ONCHARGER){
-				glTranslatef(i, 0, 0);
-				for(int j = 0; j < NUM_ROBOTS; j++){
-					glTranslatef(0, 0, j);
+			for(int j = 0; j < NUM_ROBOTS; j++){
+				glTranslatef(0, 0, j);
+				if(geo == ONCHARGER){
 					glRotatef(-90.0f, 1, 0, 0);
 					glutSolidCone(0.3, 2.0, 12, 3);
 					glRotatef(90.0f, 1, 0, 0);
-					glTranslatef(0, 0, -j);
 				}
-				glTranslatef(-i, 0, 0);
+				glTranslatef(0, -1, 0);
+					glutSolidCube(1);
+				glTranslatef(0, 1, 0);
+				glTranslatef(0, 0, -j);
 			}
+			glTranslatef(-i, 0, 0);
 		}
 
 		//Draw Robots as Spheres

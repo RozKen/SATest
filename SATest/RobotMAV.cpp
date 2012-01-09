@@ -135,7 +135,7 @@ void RobotMAV::Run(){
 		//RobotからのOutputを処理する
 		ProcessOutputs();
 		//内部の情報を更新する
-		Update();
+		//Update();
 		//Logを取る
 		Log();
 		//地図を記録する
@@ -177,7 +177,7 @@ float RobotMAV::getVision(int index) const{
 	if(index < RANGE * 2 + 1){
 		value = this->getInput(2 + index);
 	}else{
-		value = NO_SIGNAL;
+		value = -9999;	//NO_SIGNAL;
 	}
 	return value;
 }
@@ -187,6 +187,24 @@ void RobotMAV::setVision(int index, float value){
 	}else{
 		this->setInput(index, NO_SIGNAL);
 	}
+}
+
+///getはOutputから
+float RobotMAV::getChargingFlag() const{
+	return this->getOutput(0);
+}
+///setはInputへ
+void RobotMAV::setChargingFlag(float value){
+	this->setInput(13, value);
+}
+
+///getはOutputから
+float RobotMAV::getSteps() const{
+	return this->getOutput(1);
+}
+///setはInputへ
+void RobotMAV::setSteps(float value){
+	this->setInput(14, value);
 }
 
 float RobotMAV::getColorR() const{

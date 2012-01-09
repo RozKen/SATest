@@ -5,7 +5,7 @@
 //#define CONSIDER_DELAY
 
 //Importance-Based‚Å‚â‚é‚Æ‚«éŒ¾
-#define IMPORTANCE_BASED
+//#define IMPORTANCE_BASED
 #ifdef IMPORTANCE_BASED
 #define IMPORTANCE_POWER	2
 #define VERY_IMPORTANT		100.0f
@@ -19,7 +19,7 @@
 #define INVERSE_SUPPRESSOR
 #endif
 
-#define NUM_ROBOTS			3
+#define NUM_ROBOTS			1
 
 //íœ—\’è
 #define LENGTH				100

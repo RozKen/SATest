@@ -14,7 +14,7 @@ World::~World(){
 }
 
 void World::Initialize(){
-	generateGeoField("geoField.csv");
+	generateGeoField();//"geoField.csv");
 #ifdef	CONSIDER_DELAY
 	count = 0;
 #endif	//CONSIDER_DELAY
@@ -77,6 +77,9 @@ void World::Update(){
 
 			////////Vision///////
 			updateVision(robot);
+			///////Others////////
+			robot->setChargingFlag(robot->getChargingFlag());
+			robot->setSteps(robot->getSteps());
 #ifdef _DEBUG
 		//	std::cout << "Robot[" << i << "] : " << posX + dX << ", " << posY + dY << std::endl;
 #endif	//_DEBUG
@@ -113,6 +116,12 @@ void World::generateGeoField(){
 				geoField[i][j] = field;
 		}
 	}
+
+	for(int j = 0; j < NUM_ROBOTS; j++){
+		geoField[0][j] = ONSTART;
+		geoField[LENGTH - 1][j] = ONGOAL;
+	}
+
 	////File Output
 	std::string fileName = this->getLogDirectoryPath();
 	fileName.append("/geoField.csv");

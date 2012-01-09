@@ -107,7 +107,7 @@ float SAModule::getInput(int index) const{
 	return result;
 }
 void SAModule::setInput(int index, float signal){
-	//module‚Ö‚Ì“ü—Ímemory‚Ìo—Í‚ÖÝ’è‚·‚é
+	//module‚Ö‚Ì“ü—Í‚Ímemory‚Ìo—Í‚ÖÝ’è‚·‚é
 	memory->setOutput(this->inputIndex->at(index), signal);
 }
 

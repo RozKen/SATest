@@ -97,6 +97,16 @@ public:
 	 */
 	void setVision(int index, float value);
 
+	///get‚ÍOutput‚©‚ç
+	float getChargingFlag() const;
+	///set‚ÍInput‚Ö
+	void setChargingFlag(float value);
+
+	///get‚ÍOutput‚©‚ç
+	float getSteps() const;
+	///set‚ÍInput‚Ö
+	void setSteps(float value);
+
 	/**
 		@brief get Red Color of Current Robot
 	 */
