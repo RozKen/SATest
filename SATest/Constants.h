@@ -5,7 +5,7 @@
 //#define CONSIDER_DELAY
 
 //Importance-BasedÇ≈Ç‚ÇÈÇ∆Ç´êÈåæ
-//#define IMPORTANCE_BASED
+#define IMPORTANCE_BASED
 #ifdef IMPORTANCE_BASED
 #define IMPORTANCE_POWER	2
 #define VERY_IMPORTANT		100.0f

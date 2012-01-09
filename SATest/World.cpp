@@ -54,6 +54,11 @@ void World::Update(){
 			////////Position////////
 			//fPosX = fPosX + fDeltaX
 			float posX = robot->getPosX();
+			if(posX == NO_SIGNAL){
+				posX = 0.0f;
+			}else if(posX == -1.0f){
+				posX = 0.0f;
+			}
 			float dX = robot->getDX();
 			float newX;
 			if(dX != NO_SIGNAL){
@@ -126,7 +131,8 @@ void World::generateGeoField(){
 	std::string fileName = this->getLogDirectoryPath();
 	fileName.append("/geoField.csv");
 	std::ofstream ofsGeoField(fileName);
-	for(int i = LENGTH - 1; i >= 0; i--){
+	//for(int i = LENGTH - 1; i >= 0; i--){
+	for(int i = 0; i < LENGTH; i++){
 		for(int j = 0; j < NUM_ROBOTS; j++){
 			ofsGeoField << geoField[j][i] << ",";
 		}

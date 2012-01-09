@@ -27,14 +27,14 @@ void RobotMAV::Initialize(){
 	///Module 00 : Batteryセンサを追加
 	sB = new SenseBattery();
 	this->addModule(sB);
-	
-	///Module 01 : 位置センサを追加
-	sP = new SensePos();
-	this->addModule(sP);
 
-	///Module 02 : 充電器センサを追加
+	///Module 01 : 充電器センサを追加
 	sV = new SenseVision();
 	this->addModule(sV);
+
+	///Module 02 : 位置センサを追加
+	sP = new SensePos();
+	this->addModule(sP);
 
 	///Controllerを追加
 	///////Controllerは発現したときの表現色を定義する必要がある
@@ -167,15 +167,15 @@ void RobotMAV::setBattery(float value){
 	this->setInput(0, value);
 }
 float RobotMAV::getPosX() const{
-	return this->getInput(1);
+	return this->getInput(12);
 }
 void  RobotMAV::setPosX(float value){
-	this->setInput(1, value);
+	this->setInput(12, value);
 }
 float RobotMAV::getVision(int index) const{
 	float value;
 	if(index < RANGE * 2 + 1){
-		value = this->getInput(2 + index);
+		value = this->getInput(1 + index);
 	}else{
 		value = -9999;	//NO_SIGNAL;
 	}
