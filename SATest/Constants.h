@@ -56,6 +56,13 @@
 #define MAX_BAT			100
 #define BAT_LOSS		3
 
+/////////ContProgress/////////
+#ifdef	IMPORTANCE_BASED
+#define PROGRESS_LOW	0.8
+#else	//IMPORTANCE_BASED
+#define PROGRESS_LOW	0.2
+#endif	//IMPORTANCE_BASED
+
 /////////Vision Scope/////////////
 /*	
 	‹–ì‚Ì‰œs‚«:©•ª‚©‚ç2ˆÈã—£‚ê‚Ä‚¢‚ê‚ÎCˆê“x‚É1‚µ‚©
