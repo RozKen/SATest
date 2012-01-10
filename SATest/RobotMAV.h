@@ -36,7 +36,7 @@ public:
 		ModuleÇí«â¡ÇµÇƒÇ¢Ç≠ÅD
 	 */
 	RobotMAV();
-	RobotMAV(std::string directoryPath, std::string fileName);
+	RobotMAV(int typeOfArbiter, float value, std::string directoryPath, std::string fileName);
 
 	/**
 		@brief Destructor. Clear Memories.
@@ -107,6 +107,7 @@ public:
 	///setÇÕInputÇ÷
 	void setSteps(float value);
 
+	void setColor(float r, float g, float b);
 	/**
 		@brief get Red Color of Current Robot
 	 */
@@ -160,6 +161,8 @@ private:
 #ifdef CONSIDER_DELAY
 	int count;
 #endif //CONSIDER_DELAY
+	int typeOfArbiters;
+	float value;
 };
 
 #endif	//_Robot_MAV_H_

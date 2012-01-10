@@ -34,6 +34,12 @@ void World::Update(){
 	RobotMAV* robot;
 	for(int i = 0; i < this->modules->size(); i++){
 		robot = this->getRobot(i);
+		////////Goal‚µ‚Ä‚¢‚é‚Æ‚«//////
+		if(this->round(robot->getPosX()) == LENGTH){
+			robot->setPosX(LENGTH);
+			robot->setColor(1.0f, 1.0f, 1.0f);
+		}
+
 		////////Battery////////
 		float battery = robot->getBattery();
 		if(onCharger(robot)){
@@ -107,6 +113,9 @@ void World::generateGeoField(){
 		}else{
 			field = NORMAL;
 		}
+		if( i % 20 == 5 ){
+			field = ONCHARGER;
+		}
 		for(int j = 0; j < NUM_ROBOTS; j++){
 				geoField[i][j] = field;
 		}
@@ -126,7 +135,6 @@ void World::generateGeoField(){
 		for(int j = 0; j < NUM_ROBOTS; j++){
 			ofsGeoField << geoField[j][i] << ",";
 		}
-		ofsGeoField << std::endl;
 	}
 	ofsGeoField.close();
 }
@@ -159,7 +167,7 @@ void World::generateGeoField(std::string filepath){
 
 bool World::onCharger(const RobotMAV* robot){
 	bool result = false;
-	int i = robot->getPosX();
+	int i = this->round(robot->getPosX());
 	if(this->geoField[i][0] == ONCHARGER){
 		result = true;
 	}

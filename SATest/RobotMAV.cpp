@@ -5,8 +5,8 @@ RobotMAV::RobotMAV(){
 	Initialize();
 }
 
-RobotMAV::RobotMAV(std::string directoryPath, std::string fileName)
-	:Robot(directoryPath, fileName){
+RobotMAV::RobotMAV(int typeOfArbiter, float value, std::string directoryPath, std::string fileName)
+	:Robot(directoryPath, fileName), typeOfArbiters(typeOfArbiter), value(value){
 	Initialize();
 }
 
@@ -64,25 +64,25 @@ void RobotMAV::Initialize(){
 	
 	///0 : Batteryセンサ->Avoid
 	Arbiter* sBcAl;
-	sBcAl = new Arbiter(sB, 0, cAl, 0, 2.0f);
+	sBcAl = new Arbiter(sB, 0, cAl, 0, 0, 2.0f);
 	this->addArbiter(sBcAl);
 
 	///1 - 11 :Visionセンサ->Avoid
 	Arbiter* sVcAl[RANGE * 2 + 1];
 	for(int i = 0; i < RANGE * 2 + 1; i++){
-		sVcAl[i] = new Arbiter(sV, i, cAl, i + 1, 2.0f);
+		sVcAl[i] = new Arbiter(sV, i, cAl, i + 1, 0, 2.0f);
 		this->addArbiter(sVcAl[i]);
 	}
 
 	///12 : Positionセンサ->Progress
 	Arbiter* sPcP;
-	sPcP = new Arbiter(sP, 0, cP, 0, 2.0f);
+	sPcP = new Arbiter(sP, 0, cP, 0, 0, 2.0f);
 	this->addArbiter(sPcP);
 
 	///13 - 23 :Visionセンサ->Progress
 	Arbiter* sVcP[RANGE * 2 + 1];
 	for(int i = 0; i < RANGE * 2 + 1; i++){
-		sVcP[i] = new Arbiter(sV, i, cP, i + 1, 2.0f);
+		sVcP[i] = new Arbiter(sV, i, cP, i + 1, 0, 2.0f);
 		this->addArbiter(sVcP[i]);
 	}
 
@@ -90,12 +90,16 @@ void RobotMAV::Initialize(){
 	/////////階層の低い者から実施するため////
 	///24 Alive->位置Actuator	//Suppressされたデータが流れるWire
 	Arbiter* cAlaP;
-	cAlaP = new Arbiter(cAl, 0, aP, 0, 2.0f);
+	cAlaP = new Arbiter(cAl, 0, aP, 0, 0, 2.0f);
 	this->addArbiter(cAlaP);
 #ifdef	IMPORTANCE_BASED	
 	///25:Suppress Progress -> 位置Actuator
 	Arbiter* cPaP;
-	cPaP = new Arbiter(cP, 0, aP, 0);
+	if(typeOfArbiters == 0 || typeOfArbiters == 2){
+		cPaP = new Arbiter(cP, 0, aP, 0, typeOfArbiters, value);
+	}else{
+		cPaP = new Arbiter(cP, 0, aP, 0, typeOfArbiters);
+	}
 	this->addArbiter(cPaP);
 #else	//IMPORTANCE_BASED	
 	///25:Suppress Progress -> 位置Actuator
@@ -119,13 +123,13 @@ void RobotMAV::Run(){
 
 #ifdef	CONSIDER_DELAY
 	ProcessInputs();
-	for(int i = 0; i < 2; i++){
+	for(int i = 0; i < 1; i++){
 		RunModules();
 		ProcessArbiters();
 	}
 	ProcessOutputs();
 	
-#else	//CONSIDER_DELAY
+#else	//CONSIDER_DELAY6
 	ProcessInputs();
 	RunModules();
 	ProcessArbiters();
@@ -190,6 +194,12 @@ void RobotMAV::setSteps(float value){
 	this->setInput(1 + RANGE * 2 + 3, value);
 }
 
+void RobotMAV::setColor(float r, float g, float b){
+	this->color[0] = r;
+	this->color[1] = g;
+	this->color[2] = b;
+}
+
 float RobotMAV::getColorR() const{
 	return this->color[0];
 }
@@ -225,11 +235,11 @@ void RobotMAV::ProcessArbiters(){
 		}
 		for(int i = 0; i < NUM_OF_LAYERS - 1; i++){
 			for(int j = 0; j < 3; j++){
-#ifdef	INVERSE_SUPPRESSOR
-				color[j] = color[j] * ratios[i] + modColor[i+1][j] * (1.0f - ratios[i]);
-#else	//INVERSE_SUPPRESSOR
-				color[j] = color[j] * (1.0f - ratios[i]) + modColor[i+1][j] * ratios[i];
-#endif	//INVERSE_SUPPRESSOR
+				if(typeOfArbiters != 0){
+					color[j] = color[j] * ratios[i] + modColor[i+1][j] * (1.0f - ratios[i]);
+				}else{
+					color[j] = color[j] * (1.0f - ratios[i]) + modColor[i+1][j] * ratios[i];
+				}
 			}
 		}
 	}

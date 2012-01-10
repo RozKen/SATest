@@ -86,7 +86,7 @@
 
 ///ˆê“x‚Ì“®‚¯‚é‹——£
 #ifdef CONSIDER_DELAY
-#define MAX_DRIVE		1.0f	//0.3333f
+#define MAX_DRIVE		0.3333f		//1.0f	//0.3333f
 #else
 #define MAX_DRIVE		1.0f
 #endif	//CONSIDER_DELAY

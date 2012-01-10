@@ -21,15 +21,15 @@ public:
 	/**
 		@brief factor = 0.0 - 1.0のランダムのArbiter
 	 */
-	Arbiter(SAModule* src, int srcPort, SAModule* dest, int destPort);
+	Arbiter(SAModule* src, int srcPort, SAModule* dest, int destPort, int type);
 	/**
 		@brief factor固定のArbiter
 	 */
-	Arbiter(SAModule* src, int srcPort, SAModule* dest, int destPort, float factor);
+	Arbiter(SAModule* src, int srcPort, SAModule* dest, int destPort, int type, float factor);
 	/**
 		@brief 指定範囲内factor固定のArbiter
 	 */
-	Arbiter(SAModule* src, int srcPort, SAModule* dest, int destPort, 
+	Arbiter(SAModule* src, int srcPort, SAModule* dest, int destPort, int type,
 		float factor_min, float factor_max);
 	/**
 		@brief Destructor. Free Memories
@@ -136,6 +136,8 @@ protected:
 	int timeLeftModified;
 	///ランダム一様分布生成器
 	Random<boost::uniform_real<> > _rand;
+	///ArbiterのType
+	int type;
 };
 
 inline float Arbiter::getFactor() const {
