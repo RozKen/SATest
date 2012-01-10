@@ -9,7 +9,7 @@ void ContAlive::Run(){
 #endif	//IMPORTANCE_BASED
 	if(batLevel != NO_SIGNAL){
 		//[“d’†‚¾‚Á‚½‚çC
-		if(this->getIBoard(0) == 1 && this->getInput(RANGE + 1) == ONCHARGER){
+		if(this->getIBoard(0) == 1 || this->getInput(RANGE + 1) == ONCHARGER){
 			//[“dŠ®—¹‚Ìê‡
 			if(batLevel >= MAX_BAT){
 				this->setIBoard(0, 0);
@@ -20,7 +20,7 @@ void ContAlive::Run(){
 			}else{	//[“d‚ªŠ®—¹‚µ‚Ä‚¢‚È‚¢ê‡F’âŽ~‚µ‚Ä[“d‚·‚é
 				signalX = 0.0f;
 #ifdef	IMPORTANCE_BASED
-				this->importance = 50.0f;
+				this->importance = VERY_IMPORTANT;//50.0f;
 #endif	//IMPORTANCE_BASED
 			}
 		}else{	//[“d’†‚¶‚á‚È‚¢ê‡
@@ -51,7 +51,7 @@ void ContAlive::Run(){
 						signalX = 0.0f;
 #ifdef	IMPORTANCE_BASED
 						//BatteryŽc—Ê‚ª­‚È‚¢‚Ù‚ÇCd—v“x‚ª‘‚·‚æ‚¤‚É‚·‚é
-						this->importance = 50.0f * this->calcImportance(1.0f - batLevel / ((float)MAX_BAT));
+						this->importance = 30.0f * this->calcImportance(1.0f - batLevel / ((float)MAX_BAT));
 #endif	//IMPORTANCE_BASED
 						//[“d’†‚É‚·‚é
 						this->setIBoard(0, 1);

@@ -123,20 +123,19 @@ void RobotMAV::Run(){
 
 #ifdef	CONSIDER_DELAY
 	ProcessInputs();
-	for(int i = 0; i < 1; i++){
+	for(int i = 0; i < 2; i++){
 		RunModules();
 		ProcessArbiters();
 	}
 	ProcessOutputs();
 	
-#else	//CONSIDER_DELAY6
+#else	//CONSIDER_DELAY
 	ProcessInputs();
 	RunModules();
 	ProcessArbiters();
 	ProcessOutputs();
-	Log();
 #endif	//CONSIDER_DELAY
-
+	Log();
 }
 
 void RobotMAV::Update(){

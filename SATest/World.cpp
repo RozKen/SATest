@@ -174,9 +174,10 @@ bool World::onCharger(const RobotMAV* robot){
 	return result;
 }
 
-bool World::isAlive(const RobotMAV* robot){
+bool World::isAlive(RobotMAV* robot){
 	bool result = true;
 	if(robot->getBattery() < 1.0 * (float)MAX_DRIVE){
+		robot->setColor(0.3f, 0.3f, 0.3f);
 		result = false;
 	}
 	return result;
@@ -184,7 +185,7 @@ bool World::isAlive(const RobotMAV* robot){
 
 void World::updateVision(RobotMAV* robot){
 	for(int i = 0; i < RANGE * 2 + 1; i++){
-		int pos = robot->getPosX() - RANGE + i;
+		int pos = this->round(robot->getPosX()) - RANGE + i;
 		if(pos >= 0 && pos <= LENGTH){
 			robot->setVision(i, this->geoField[pos][0]);
 		}else{

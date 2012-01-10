@@ -8,7 +8,7 @@ std::string logPathGenerator(){
 	///Œ»İ‚ğæ“¾
 	time(&now);
 	///LogDirectoryPath‚ğİ’è
-	std::string testLogDirectoryPath = "../../../../analysis/";
+	std::string testLogDirectoryPath = "../../../../analysis/test/";
 	testLogDirectoryPath.append(ctime(&now));
 	testLogDirectoryPath.erase(testLogDirectoryPath.size() - 12, 1);
 	testLogDirectoryPath.erase(testLogDirectoryPath.size() - 9, 1);

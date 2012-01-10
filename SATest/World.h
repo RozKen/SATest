@@ -104,7 +104,7 @@ protected:
 		@param robot robotへのpointer
 		@return Batteryが切れていないか？
 	 */
-	bool isAlive(const RobotMAV* robot);
+	bool isAlive(RobotMAV* robot);
 
 	/**
 		@brief 各ロボットのVisionセンサへの入力などを更新

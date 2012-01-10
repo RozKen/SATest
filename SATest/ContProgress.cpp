@@ -31,7 +31,7 @@ void ContProgress::Run(){
 		signalX = (float)MAX_DRIVE;
 #ifdef	IMPORTANCE_BASED
 		//進捗が遅いほど，重要とする
-		this->importance = 5.0f;//this->calcImportance(1.0f - progress / PROGRESS_LOW);
+		this->importance = 5.0f * this->calcImportance(1.0f - progress / PROGRESS_LOW);
 #endif	//IMPORTANCE_BASED
 	}else{
 		signalX = NO_SIGNAL;

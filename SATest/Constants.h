@@ -46,12 +46,12 @@
 #define ONGOAL			2
 #define ONCHARGER		3
 ///全体における充電器の存在確率
-#define P_CHARGER		0.05		//0.05
+#define P_CHARGER		0.02		//0.05
 
 /////////ContAlive/////////////
 ///Batteryが低いと判断するしきい値
 #ifdef	IMPORTANCE_BASED
-#define BATTERY_LOW		0.8
+#define BATTERY_LOW		0.5
 #else	//IMPORTANCE_BASED
 #define BATTERY_LOW		0.2
 #endif	//IMPORTANCE_BASED
@@ -61,7 +61,7 @@
 
 /////////ContProgress/////////
 #ifdef	IMPORTANCE_BASED
-#define PROGRESS_LOW	0.8
+#define PROGRESS_LOW	0.5
 #else	//IMPORTANCE_BASED
 #define PROGRESS_LOW	0.2
 #endif	//IMPORTANCE_BASED
