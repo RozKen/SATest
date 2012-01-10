@@ -95,7 +95,7 @@ void RobotMAV::Initialize(){
 #ifdef	IMPORTANCE_BASED	
 	///25:Suppress Progress -> ˆÊ’uActuator
 	Arbiter* cPaP;
-	if(typeOfArbiters == 0 || typeOfArbiters == 2){
+	if(typeOfArbiters == 0 || typeOfArbiters == 1 || typeOfArbiters == 2){
 		cPaP = new Arbiter(cP, 0, aP, 0, typeOfArbiters, value);
 	}else{
 		cPaP = new Arbiter(cP, 0, aP, 0, typeOfArbiters);

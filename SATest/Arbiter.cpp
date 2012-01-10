@@ -238,8 +238,8 @@ double Arbiter::generateSignal(){
 		}
 	}else if(type == 3){	/// Prob Superposer
 		magnitude = 1.0f;
-		sourceRatio = currentRatio;
-		destRatio = 1.0f - sourceRatio;
+		destRatio = _rand();
+		sourceRatio = 1.0f - destRatio;
 	}
 
 	///‚±‚ê‚ÅF‚ğŒˆ‚ß‚éD
