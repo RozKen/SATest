@@ -18,7 +18,7 @@ void ContAlive::Run(){
 			}else{	//[“d‚ªŠ®—¹‚µ‚Ä‚¢‚È‚¢ê‡F’âŽ~‚µ‚Ä[“d‚·‚é
 				if(this->getInput(RANGE + 1) == ONCHARGER){
 					signalX = 0.0f;
-					this->importance = VERY_IMPORTANT;//50.0f;
+					this->importance = 5.0f * this->calcImportance(1.0f - batLevel / ((float)MAX_BAT));//VERY_IMPORTANT;//50.0f;
 					this->setIBoard(0, 1);
 				}
 			}

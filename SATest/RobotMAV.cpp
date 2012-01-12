@@ -90,7 +90,7 @@ void RobotMAV::Initialize(){
 	/////////ŠK‘w‚Ì’á‚¢ŽÒ‚©‚çŽÀŽ{‚·‚é‚½‚ß////
 	///24 Alive->ˆÊ’uActuator	//Suppress‚³‚ê‚½ƒf[ƒ^‚ª—¬‚ê‚éWire
 	Arbiter* cAlaP;
-	cAlaP = new Arbiter(cAl, 0, aP, 0, typeOfArbiters, 2.0f);
+	cAlaP = new Arbiter(cAl, 0, aP, 0, 4, 2.0f);
 	this->addArbiter(cAlaP);
 #ifdef	IMPORTANCE_BASED	
 	///25:Suppress Progress -> ˆÊ’uActuator
