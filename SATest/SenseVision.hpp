@@ -5,16 +5,16 @@
 
 /**
 	@class SenseVision
-	@brief 自分の位置がBattery Chargerのある場所かどうかを与える
+	@brief 前後のマスを見る
 	<h1>Inputs</h1>
 	No Inputs
 	<h1>Outputs</h1>
 	<ul>
-		<li>Output0 : onBattery : 1.0 = true, 0.0 = false</li>
+		<li>Output0 - 20: Vision[i]
 	</ul>
 	<h1>IBoard</h1>
 	<ul>
-		<li>iBoard0 : iOnBattery : 1 = true, 0 = false</li>
+		<li>iBoard0 - 20 : iOnBattery : 1 = true, 0 = false</li>
 	</ul>
 	@author Kenichi Yorozu
 	@date 9th January 2012

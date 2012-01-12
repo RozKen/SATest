@@ -169,9 +169,9 @@ float RobotMAV::getVision(int index) const{
 }
 void RobotMAV::setVision(int index, float value){
 	if(index < RANGE * 2 + 1){
-		this->setInput(index, value);
+		this->setInput(index + 1, value);
 	}else{
-		this->setInput(index, NO_SIGNAL);
+		this->setInput(index + 1, NO_SIGNAL);
 	}
 }
 

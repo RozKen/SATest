@@ -9,19 +9,22 @@ void ContAlive::Run(){
 #endif	//IMPORTANCE_BASED
 	if(batLevel != NO_SIGNAL){
 		//[“d’†‚¾‚Á‚½‚çC
-		if(this->getIBoard(0) == 1 || this->getInput(RANGE + 1) == ONCHARGER){
+		if(this->getIBoard(0) == 1 || this->getInput(RANGE + 1) == ONCHARGER){//this->getInput(RANGE) == ONCHARGER){
 			//[“dŠ®—¹‚Ìê‡
-			if(batLevel >= MAX_BAT){
+			if(batLevel >= MAX_BAT * 0.95){
 				this->setIBoard(0, 0);
 				signalX = NO_SIGNAL;
 #ifdef	IMPORTANCE_BASED
 				this->importance = NO_SIGNAL;
 #endif	//IMPORTANCE_BASED
 			}else{	//[“d‚ªŠ®—¹‚µ‚Ä‚¢‚È‚¢ê‡F’âŽ~‚µ‚Ä[“d‚·‚é
-				signalX = 0.0f;
+				if(this->getInput(RANGE + 1) == ONCHARGER){
+				//if(this->getInput(RANGE) == ONCHARGER){
+					signalX = 0.0f;
 #ifdef	IMPORTANCE_BASED
-				this->importance = VERY_IMPORTANT;//50.0f;
+					this->importance = VERY_IMPORTANT;//50.0f;
 #endif	//IMPORTANCE_BASED
+				}
 			}
 		}else{	//[“d’†‚¶‚á‚È‚¢ê‡
 			this->setIBoard(0, 0);
@@ -51,20 +54,22 @@ void ContAlive::Run(){
 						signalX = 0.0f;
 #ifdef	IMPORTANCE_BASED
 						//BatteryŽc—Ê‚ª­‚È‚¢‚Ù‚ÇCd—v“x‚ª‘‚·‚æ‚¤‚É‚·‚é
-						this->importance = 30.0f * this->calcImportance(1.0f - batLevel / ((float)MAX_BAT));
+						this->importance = 90.0f * this->calcImportance(1.0f - batLevel / ((float)MAX_BAT));
 #endif	//IMPORTANCE_BASED
 						//[“d’†‚É‚·‚é
 						this->setIBoard(0, 1);
 					}else{				//[“dŠí‚Ü‚ÅˆÚ“®‚·‚é•K—v‚ª‚ ‚éê‡
-						signalX = (float)MAX_DRIVE * (index - RANGE);
-						if(distance > 1.0){
-							signalX /= distance;
+						signalX = (float)MAX_DRIVE * distance;//(index - RANGE);
+						if(distance > 1){
+							if(distance != 1000){
+								signalX /= distance;
+							}
 						}
 #ifdef	IMPORTANCE_BASED
-						if(distance < 0.6){
+						if(distance < 0.3){
 							this->importance = VERY_IMPORTANT;
 						}else{
-							this->importance = this->calcImportance(RANGE / distance);
+							this->importance = 50.0f * this->calcImportance(RANGE / distance);
 						}
 #endif	//IMPORTANCE_BASED
 					}

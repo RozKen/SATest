@@ -25,13 +25,13 @@ void ContProgress::Run(){
 	//現在地
 	float pos = this->getInput(0);
 	//進度
-	float progress = pos / (float)step;
+	float progress = pos * 2 / (float)step;
 
 	if(progress < PROGRESS_LOW){
 		signalX = (float)MAX_DRIVE;
 #ifdef	IMPORTANCE_BASED
 		//進捗が遅いほど，重要とする
-		this->importance = 5.0f * this->calcImportance(1.0f - progress / PROGRESS_LOW);
+		this->importance = 1.0f * this->calcImportance(1.0f - progress / PROGRESS_LOW);
 #endif	//IMPORTANCE_BASED
 	}else{
 		signalX = NO_SIGNAL;
@@ -45,7 +45,7 @@ void ContProgress::Run(){
 		if(goal != 0){
 			signalX = (float)MAX_DRIVE;
 #ifdef	IMPORTANCE_BASED
-		this->importance = 5.0f;
+			this->importance = 50.0f;
 #endif	//IMPORTANCE_BASED
 		}
 	}

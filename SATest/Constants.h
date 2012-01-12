@@ -19,7 +19,7 @@
 #define INVERSE_SUPPRESSOR
 #endif
 
-#define NUM_ROBOTS			11
+#define NUM_ROBOTS			15
 
 //íœ—\’è
 #define LENGTH				100

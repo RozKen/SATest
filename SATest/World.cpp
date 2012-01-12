@@ -113,7 +113,7 @@ void World::generateGeoField(){
 		}else{
 			field = NORMAL;
 		}
-		if( i % 20 == 5 ){
+		if( i % 20 == 10 ){
 			field = ONCHARGER;
 		}
 		for(int j = 0; j < NUM_ROBOTS; j++){
@@ -184,7 +184,7 @@ bool World::isAlive(RobotMAV* robot){
 }
 
 void World::updateVision(RobotMAV* robot){
-	for(int i = 0; i < RANGE * 2 + 1; i++){
+	for(int i = 0; i < (RANGE * 2 + 1); i++){
 		int pos = this->round(robot->getPosX()) - RANGE + i;
 		if(pos >= 0 && pos <= LENGTH){
 			robot->setVision(i, this->geoField[pos][0]);

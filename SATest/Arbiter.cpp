@@ -158,6 +158,11 @@ double Arbiter::generateSignal(){
 		}else{
 			///乱数で生成
 			currentFactor = _rand();
+			if(currentFactor < 0.0f){
+				currentFactor = 0.0f;
+			}else if(currentFactor > 1.0f){
+				currentFactor = 1.0f;
+			}
 		}
 	}else{
 		///factorが指定されていれば，その値を利用
@@ -238,8 +243,13 @@ double Arbiter::generateSignal(){
 		}
 	}else if(type == 3){	/// Prob Superposer
 		magnitude = 1.0f;
-		destRatio = _rand();
-		sourceRatio = 1.0f - destRatio;
+		if(getDest() == NO_SIGNAL){
+			destRatio = 0.0f;
+			sourceRatio = 1.0f;
+		}else{
+			destRatio = _rand();
+			sourceRatio = 1.0f - destRatio;
+		}
 	}
 
 	///これで色を決める．
