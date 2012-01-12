@@ -17,9 +17,9 @@
  */
 #ifndef	IMPORTANCE_BASED
 #define INVERSE_SUPPRESSOR
-#endif
+#endif	//IMPORTANCE_BASED
 
-#define NUM_ROBOTS			15
+#define NUM_ROBOTS			1	//15
 
 //削除予定
 #define LENGTH				100
@@ -46,22 +46,26 @@
 #define ONGOAL			2
 #define ONCHARGER		3
 ///全体における充電器の存在確率
-#define P_CHARGER		0.02		//0.05
+#define P_CHARGER		0.1		//0.05
 
 /////////ContAlive/////////////
 ///Batteryが低いと判断するしきい値
 #ifdef	IMPORTANCE_BASED
-#define BATTERY_LOW		0.5
+#define BATTERY_LOW		0.8
 #else	//IMPORTANCE_BASED
 #define BATTERY_LOW		0.2
 #endif	//IMPORTANCE_BASED
 #define MAX_BAT			100
 #define BAT_LOSS		3
-#define	BAT_GAIN		10
+#define	BAT_GAIN		1
 
 /////////ContProgress/////////
 #ifdef	IMPORTANCE_BASED
-#define PROGRESS_LOW	0.5
+#ifdef CONSIDER_DELAY
+#define PROGRESS_LOW	0.3
+#else	//CONSIDER_DELAY
+#define PROGRESS_LOW	0.3
+#endif	CONSIDER_DELAY
 #else	//IMPORTANCE_BASED
 #define PROGRESS_LOW	0.2
 #endif	//IMPORTANCE_BASED
@@ -86,7 +90,7 @@
 
 ///一度の動ける距離
 #ifdef CONSIDER_DELAY
-#define MAX_DRIVE		0.3333f		//1.0f	//0.3333f
+#define MAX_DRIVE		0.5f	//0.3333f		//1.0f	//0.3333f
 #else
 #define MAX_DRIVE		1.0f
 #endif	//CONSIDER_DELAY

@@ -121,27 +121,27 @@ double Arbiter::generateSignal(){
 			}
 
 			if((impSrc != NO_SIGNAL && impDst == NO_SIGNAL) || impSrc == VERY_IMPORTANT){
-	#ifdef	INVERSE_SUPPRESSOR
+//	#ifdef	INVERSE_SUPPRESSOR
 				currentFactor = 0.0f;	//src‚ª‹­‚¢
-	#else	//INVERSE_SUPPRESSOR
-				currentFactor = 1.0f;	//src‚ª‹­‚¢
-	#endif	//INVERSE_SUPPRESSOR
+//	#else	//INVERSE_SUPPRESSOR
+//				currentFactor = 1.0f;	//src‚ª‹­‚¢
+//	#endif	//INVERSE_SUPPRESSOR
 				//destination‚Ìd—v“x‚ðÝ’è‚·‚é
 				destination->setImportance(impSrc);
 			}else if((impSrc == NO_SIGNAL && impDst != NO_SIGNAL) || impDst == VERY_IMPORTANT){
-	#ifdef	INVERSE_SUPPRESSOR
+//	#ifdef	INVERSE_SUPPRESSOR
 				currentFactor = 1.0f;	//dst‚ª‹­‚¢
-	#else	//INVERSE_SUPPRESSOR
-				currentFactor = 0.0f;	//dst‚ª‹­‚¢
-	#endif	//INVERSE_SUPPRESSOR
+//	#else	//INVERSE_SUPPRESSOR
+//				currentFactor = 0.0f;	//dst‚ª‹­‚¢
+//	#endif	//INVERSE_SUPPRESSOR
 				//‰º‚Í‰½‚à‚µ‚È‚¢‚Ì‚Æ“¯‚¶
 				destination->setImportance(impDst);
 			}else if(impSrc != NO_SIGNAL && impDst != NO_SIGNAL){
-	#ifdef	INVERSE_SUPPRESSOR
+//	#ifdef	INVERSE_SUPPRESSOR
 				currentFactor = impDst / (impSrc + impDst);	//‘å‚«‚¢‚Ù‚Ç‹­‚¢‚Ì‚Ídst
-	#else	//INVERSE_SUPPRESSOR
-				currentFactor = impSrc / (impSrc + impDst);	//‘å‚«‚¢‚Ù‚Ç‹­‚¢‚Ì‚Ísrc
-	#endif	//INVERSE_SUPPRESSOR
+//	#else	//INVERSE_SUPPRESSOR
+//				currentFactor = impSrc / (impSrc + impDst);	//‘å‚«‚¢‚Ù‚Ç‹­‚¢‚Ì‚Ísrc
+//	#endif	//INVERSE_SUPPRESSOR
 				if(currentFactor > 1.0f){
 					currentFactor = 1.0f;
 				}else if(currentFactor < 0.0f){
@@ -246,6 +246,9 @@ double Arbiter::generateSignal(){
 		if(getDest() == NO_SIGNAL){
 			destRatio = 0.0f;
 			sourceRatio = 1.0f;
+		}else if(getSrc() == NO_SIGNAL){
+			destRatio = 1.0f;
+			sourceRatio = 0.0f;
 		}else{
 			destRatio = _rand();
 			sourceRatio = 1.0f - destRatio;

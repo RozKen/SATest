@@ -72,8 +72,8 @@ void World::Update(){
 			robot->setPosX(newX);
 
 			//i‚ñ‚¾‹——£‚É‰ž‚¶‚ÄBattery‚ðŒ¸‚ç‚·
-			if(sqrt(dX) > 0){
-				battery -= (float)BAT_LOSS * sqrt(dX);
+			if(dX != 0 && dX != NO_SIGNAL){
+				battery -= (float)BAT_LOSS * sqrt(pow(dX,2));
 			}
 
 			////////Vision///////

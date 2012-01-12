@@ -9,21 +9,17 @@ void ContAlive::Run(){
 #endif	//IMPORTANCE_BASED
 	if(batLevel != NO_SIGNAL){
 		//充電中だったら，
-		if(this->getIBoard(0) == 1 || this->getInput(RANGE + 1) == ONCHARGER){//this->getInput(RANGE) == ONCHARGER){
+		if(this->getIBoard(0) == 1 || this->getInput(RANGE + 1) == ONCHARGER){
 			//充電完了の場合
-			if(batLevel >= MAX_BAT * 0.95){
+			if(batLevel >= MAX_BAT){
 				this->setIBoard(0, 0);
 				signalX = NO_SIGNAL;
-#ifdef	IMPORTANCE_BASED
 				this->importance = NO_SIGNAL;
-#endif	//IMPORTANCE_BASED
 			}else{	//充電が完了していない場合：停止して充電する
 				if(this->getInput(RANGE + 1) == ONCHARGER){
-				//if(this->getInput(RANGE) == ONCHARGER){
 					signalX = 0.0f;
-#ifdef	IMPORTANCE_BASED
 					this->importance = VERY_IMPORTANT;//50.0f;
-#endif	//IMPORTANCE_BASED
+					this->setIBoard(0, 1);
 				}
 			}
 		}else{	//充電中じゃない場合
@@ -74,7 +70,6 @@ void ContAlive::Run(){
 #endif	//IMPORTANCE_BASED
 					}
 				}
-
 			}else{	//電池が足りている場合
 				signalX = NO_SIGNAL;
 #ifdef	IMPORTANCE_BASED

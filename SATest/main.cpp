@@ -10,13 +10,13 @@
 #include "Utilities.h"
 
 ///////For OpenGL Manipulation///////
-float zoom = 50.0f;
+float zoom = 150.0f;
 //X-axis Rotation [degree]
-float rotx = 30.0f;
+float rotx = 45.0f;
 //Y-axis Rotation [degree]
 float roty = 0.0f;
 float tx = 0;
-float ty = -15.0f;	//負号があるのは，カメラが動くのではなく，カメラ以外を動かすから．???
+float ty = 0.0f;	//負号があるのは，カメラが動くのではなく，カメラ以外を動かすから．???
 int lastx=0;
 int lasty=0;
 unsigned char Buttons[3] = {0};
@@ -82,7 +82,7 @@ int main(int argc, char** argv){
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGBA|GLUT_DEPTH);
-	glutInitWindowSize(640, 480);
+	glutInitWindowSize(800, 800);
 	glutInitWindowPosition(100, 100);
 	glutCreateWindow("Radiation Mapping Agents");
 
@@ -127,18 +127,18 @@ void Init(){
 	mav = new std::vector<RobotMAV*>();
 	
 	int i = 0;
-	mav->push_back(new RobotMAV(0, 1.0f, directory, "mavSuppress" + world->intToString(i) + ".csv"));
-	i++;
-	mav->push_back(new RobotMAV(1, 1.0f, directory, "mavInverseSuppress" + world->intToString(i) + ".csv"));
-	i++;
+	//mav->push_back(new RobotMAV(0, 1.0f, directory, "mavSuppress" + world->intToString(i) + ".csv"));
+	//i++;
+	//mav->push_back(new RobotMAV(1, 1.0f, directory, "mavInverseSuppress" + world->intToString(i) + ".csv"));
+	//i++;
 	mav->push_back(new RobotMAV(4, 1.0f, directory, "mavImportanceBased" + world->intToString(i) + ".csv"));
 	i++;
-	mav->push_back(new RobotMAV(3, 1.0f, directory, "mavStochasticSuperpose" + world->intToString(i) + ".csv"));
-	i++;
-	for(; i < NUM_ROBOTS; i++){
-		mav->push_back(new RobotMAV(2, 0.1f * (float)(i - 4), directory, "mavStochasticSelect" + world->intToString(i) + ".csv"));
+	//mav->push_back(new RobotMAV(3, 1.0f, directory, "mavStochasticSuperpose" + world->intToString(i) + ".csv"));
+	//i++;
+	//for(; i < NUM_ROBOTS; i++){
+	//	mav->push_back(new RobotMAV(2, 0.1f * (float)(i - 4), directory, "mavStochasticSelect" + world->intToString(i) + ".csv"));
 		//mav->push_back(new RobotMAV(1, 0.1f * (float)(i), directory, "mavStochasticSelect" + world->intToString(i) + ".csv"));
-	}
+	//}
 	for(i = 0; i < NUM_ROBOTS; i++){
 		world->addRobot(mav->at(i));
 		//初期値を設定

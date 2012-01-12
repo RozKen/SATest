@@ -25,7 +25,7 @@ void ContProgress::Run(){
 	//åªç›ín
 	float pos = this->getInput(0);
 	//êiìx
-	float progress = pos * 2 / (float)step;
+	float progress = pos / (float)step;
 
 	if(progress < PROGRESS_LOW){
 		signalX = (float)MAX_DRIVE;
@@ -45,7 +45,7 @@ void ContProgress::Run(){
 		if(goal != 0){
 			signalX = (float)MAX_DRIVE;
 #ifdef	IMPORTANCE_BASED
-			this->importance = 50.0f;
+			this->importance = 2.0f;
 #endif	//IMPORTANCE_BASED
 		}
 	}
